@@ -2,17 +2,19 @@ import pytest
 import time
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 URL = 'https://www.saucedemo.com'
 USERNAME = "standard_user"
 PASSWORD = "secret_sauce"
 
-_INPUT_NAME = 'user-name'
-_INPUT_PASSWORD = 'password'
-_LOGIN_BUTTON = 'login-button'
+_INPUT_NAME = (By.NAME, 'user-name')
+_INPUT_PASSWORD = (By.NAME, 'password')
+_LOGIN_BUTTON = (By.NAME, 'login-button')
 
 
 def get_driver():
@@ -41,12 +43,18 @@ def login_saucedemo(driver):
     driver.get(URL)
     time.sleep(2)
     # ingreso las credenciales
-    driver.find_element(By.NAME, _INPUT_NAME).send_keys(USERNAME)
-    time.sleep(2)
-    driver.find_element(By.NAME, _INPUT_PASSWORD).send_keys(PASSWORD)
-    time.sleep(2)
-    driver.find_element(By.NAME, _LOGIN_BUTTON).click()
-    time.sleep(2)
+
+    WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable(_INPUT_NAME)
+    ).send_keys(USERNAME)
+
+    WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable(_INPUT_PASSWORD)
+    ).send_keys(PASSWORD)
+
+    WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable(_LOGIN_BUTTON)
+    ).click()
 
 
 def take_screenshot(driver, name):
