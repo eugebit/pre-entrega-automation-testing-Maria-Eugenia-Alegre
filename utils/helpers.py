@@ -12,9 +12,9 @@ URL = 'https://www.saucedemo.com'
 USERNAME = "standard_user"
 PASSWORD = "secret_sauce"
 
-_INPUT_NAME = (By.NAME, 'user-name')
-_INPUT_PASSWORD = (By.NAME, 'password')
-_LOGIN_BUTTON = (By.NAME, 'login-button')
+# _INPUT_NAME = (By.NAME, 'user-name')
+# _INPUT_PASSWORD = (By.NAME, 'password')
+# _LOGIN_BUTTON = (By.NAME, 'login-button')
 
 
 def get_driver():
@@ -39,22 +39,22 @@ def get_driver():
     return driver
 
 
-def login_saucedemo(driver):
-    driver.get(URL)
-    time.sleep(2)
-    # ingreso las credenciales
-
-    WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable(_INPUT_NAME)
-    ).send_keys(USERNAME)
-
-    WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable(_INPUT_PASSWORD)
-    ).send_keys(PASSWORD)
-
-    WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable(_LOGIN_BUTTON)
-    ).click()
+# def login_saucedemo(driver):
+#     driver.get(URL)
+#     time.sleep(2)
+#     # ingreso las credenciales
+#
+#     WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable(_INPUT_NAME)
+#     ).send_keys(USERNAME)
+#
+#     WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable(_INPUT_PASSWORD)
+#     ).send_keys(PASSWORD)
+#
+#     WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable(_LOGIN_BUTTON)
+#     ).click()
 
 
 def take_screenshot(driver, name):
