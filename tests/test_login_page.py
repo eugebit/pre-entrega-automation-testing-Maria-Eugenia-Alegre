@@ -13,3 +13,4 @@ def test_login(driver):
     # por medio de Css_selector,dentro de este div padre va a ir a buscar una clase llamada título
     title = driver.find_element(By.CSS_SELECTOR, 'div.header_secondary_container .title').text
     assert title == 'Products'
+    loginpage.logout()

@@ -1,29 +1,27 @@
 from selenium.webdriver.common.by import By
 from page.login_page import LoginPage
+from page.inventory_page import InventoryPage
+from page.shopping_cart_page import ShoppingCartPage
 from utils.helpers import take_screenshot
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+
 
 def test_shopping_cart(driver):
     test_name = 'test_shopping_cart'
+    # 1. me logueo
     loginpage = LoginPage(driver)
+    inventory = InventoryPage(driver)
+    shopping_cart = ShoppingCartPage(driver)
     loginpage.open()
     loginpage.login()
-    products = driver.find_elements(By.CLASS_NAME, 'inventory_item')
-    products[0].find_element(By.TAG_NAME, 'button').click()
-
-    cant_items_carts = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.CLASS_NAME, 'shopping_cart_badge'))
-    ).text
-
-    WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.ID, 'shopping_cart_container'))
-    ).click()
-
-    title = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.CLASS_NAME, 'title'))
-    ).text
+    # 2.cheuqeo que estoy en inventory
+    inventory.is_at_page()
+    # 3.agrego productos al carrito
+    inventory.add_item_to_cart()
+    # 4.chequeo que se hayan agregado
+    assert shopping_cart.items_in_cart() > 0
+    # 5. voy a la pag del carrito
+    shopping_cart.go_to_your_cart()
     take_screenshot(driver, test_name)
-    assert cant_items_carts == '1'
-    assert title == 'Your Cart'
-
+    assert shopping_cart.is_at_shopping_cart_page()
+    # 6. me deslogueo
+    loginpage.logout()
