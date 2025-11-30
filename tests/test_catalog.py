@@ -1,4 +1,3 @@
-from django.contrib.auth import login
 from selenium.webdriver.common.by import By
 from page.login_page import LoginPage
 from utils.helpers import URL
@@ -12,12 +11,13 @@ def test_catalog(driver):
     loginpage.login()
     products = driver.find_elements(By.CLASS_NAME, 'inventory_item')
     inventory = InventoryPage(driver)
-    inventory.is_at_page()
+    inventory.is_at_inventory_page()
     take_screenshot(driver, test_name)
     loginpage.logout()
 
-    assert URL in driver.current_url
     assert len(products) > 0  # verifico que haya una lista de productos con al menos un producto
+    assert loginpage.is_in_login_page()
+
 
     """
     despues ver si puedo agregar estas validaciones como funciones que devuelvan el título el menu etc 

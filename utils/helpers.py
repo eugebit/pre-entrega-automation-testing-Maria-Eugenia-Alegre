@@ -4,11 +4,9 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
-
+import requests
 
 URL = 'https://www.saucedemo.com'
-USERNAME = "standard_user"
-PASSWORD = "secret_sauce"
 
 
 def get_driver():
@@ -29,3 +27,4 @@ def get_driver():
 def take_screenshot(driver, name):
     path = '../Evidencias/' + name + '.png'
     driver.save_screenshot(path)
+

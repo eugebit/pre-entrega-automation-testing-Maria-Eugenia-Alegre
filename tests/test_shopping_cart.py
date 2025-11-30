@@ -14,7 +14,7 @@ def test_shopping_cart(driver):
     loginpage.open()
     loginpage.login()
     # 2.cheuqeo que estoy en inventory
-    inventory.is_at_page()
+    inventory.is_at_inventory_page()
     # 3.agrego productos al carrito
     inventory.add_item_to_cart()
     # 4.chequeo que se hayan agregado
@@ -25,3 +25,4 @@ def test_shopping_cart(driver):
     assert shopping_cart.is_at_shopping_cart_page()
     # 6. me deslogueo
     loginpage.logout()
+    assert loginpage.is_in_login_page()

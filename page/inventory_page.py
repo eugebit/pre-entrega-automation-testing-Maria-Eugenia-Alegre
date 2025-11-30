@@ -4,13 +4,13 @@ from selenium.webdriver.common.by import By
 
 
 class InventoryPage:
-    URL_current = '/inventory.html'
+    CURRENT_URL = '/inventory.html'
 
     def __init__(self, driver):
         self.driver = driver
 
-    def is_at_page(self):
-        return self.URL_current in self.driver.current_url
+    def is_at_inventory_page(self):
+        return self.CURRENT_URL in self.driver.current_url
 
     def add_item_to_cart(self):
         products = self.driver.find_elements(By.CLASS_NAME, 'inventory_item')

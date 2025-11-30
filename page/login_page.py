@@ -1,11 +1,8 @@
 import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from utils.helpers import URL, USERNAME, PASSWORD
-from utils.helpers import take_screenshot
-
+from utils.helpers import URL
 from selenium.webdriver.common.by import By
-
 
 class LoginPage:
     _INPUT_NAME = (By.NAME, 'user-name')
@@ -21,14 +18,14 @@ class LoginPage:
         self.driver.get(URL)
         time.sleep(2)
 
-    def login(self, username=USERNAME, password=PASSWORD):
+    def login(self,username,password):
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable(self._INPUT_NAME)
-        ).send_keys(USERNAME)
+        ).send_keys(username)
 
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable(self._INPUT_PASSWORD)
-        ).send_keys(PASSWORD)
+        ).send_keys(password)
 
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable(self._LOGIN_BUTTON)
@@ -41,3 +38,6 @@ class LoginPage:
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable(self.LOGOUT_BUTTON)
         ).click()
+        time.sleep(3)
+    def is_in_login_page(self):
+        return URL in self.driver.current_url

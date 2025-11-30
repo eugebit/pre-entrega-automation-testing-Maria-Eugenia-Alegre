@@ -6,3 +6,7 @@ def driver():
     driver = get_driver()
     yield driver  # mantiene la sesion iniciada
     driver.quit()
+
+@pytest.fixture
+def api_url():
+    return "https://jsonplaceholder.typicode.com/"
