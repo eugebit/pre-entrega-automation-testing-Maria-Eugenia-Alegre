@@ -1,9 +1,8 @@
 from datetime import datetime
-from http.client import responses
 import requests
 import pytest
-from faker.contrib.pytest.plugin import faker
 from faker import Faker
+import pytest_check as check
 
 fake = Faker()
 
@@ -69,3 +68,49 @@ class TestDeleteUser:
     def test_delete_response_code(self, api_url):
         response = requests.delete(api_url + "users/3")
         assert response.status_code == 200
+
+
+class TestUserWorkflow:
+    @pytest.mark.completo
+    def test_users_completo(self, api_url):
+        print("GET: Obetener usuarios")
+        response = requests.get(api_url + "users")
+        data = response.json()
+        check.equal(response.status_code, 200)
+        check.is_true(len(data) > 0)
+        check.is_true(isinstance(data, list))
+
+        print("POST: Crear usuario")
+        new_user = {
+            "user_name": fake.name(),
+            "email": fake.email(),
+            "phone": fake.phone_number(),
+            "createdAt": datetime.now()
+        }
+        response = requests.post(api_url + "users", new_user)
+        data = response.json()
+        check.is_in("id", data)
+        check.equal(response.status_code, 201)
+        if "createdAt" in data:
+            created_at = data["createdAt"]
+            current_year = datetime.now().year
+            check.is_in(str(current_year), created_at)
+        print("Patch: Modificar un dato de un usuario en particular")
+        user_update = {
+            "id": 2,
+            "email": fake.email()
+        }
+        response = requests.patch(api_url + "users/2", user_update)
+        check.equal(response.status_code, 200)
+        print("Put: Modificar todos los datos de un usuario en particular")
+        user_update = {
+            "id": 1,
+            "user_name": fake.name(),
+            "email": fake.email(),
+            "phone": fake.phone_number()
+        }
+        response = requests.put(api_url + "users/1", user_update)
+        check.equal(response.status_code, 200)
+        print("delete: borrar un usuario en particular")
+        response = requests.delete(api_url + "users/3")
+        check.equal(response.status_code, 200)
