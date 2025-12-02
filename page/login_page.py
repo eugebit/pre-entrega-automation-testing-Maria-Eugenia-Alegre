@@ -3,7 +3,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from utils.helpers import URL
 from selenium.webdriver.common.by import By
-
 class LoginPage:
     _INPUT_NAME = (By.NAME, 'user-name')
     _INPUT_PASSWORD = (By.NAME, 'password')

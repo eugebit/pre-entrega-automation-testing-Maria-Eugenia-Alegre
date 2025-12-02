@@ -5,8 +5,11 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 import requests
+from datetime import datetime
 
 URL = 'https://www.saucedemo.com'
+USERNAME = "standard_user"
+PASSWORD = "secret_sauce"
 
 
 def get_driver():
@@ -24,7 +27,14 @@ def get_driver():
     return driver
 
 
-def take_screenshot(driver, name):
-    path = '../Evidencias/' + name + '.png'
-    driver.save_screenshot(path)
+def get_screenshot_name():
+    # Generar nombre del archivo con la fecha y hora actual
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    screenshot_name = f"captura_error{timestamp}.png"
+    return screenshot_name
 
+
+def take_screenshot(driver, test_name):
+    screenshot_name = get_screenshot_name()
+    path = '../Evidencias' + test_name + screenshot_name + '.png'
+    driver.save_screenshot(path)

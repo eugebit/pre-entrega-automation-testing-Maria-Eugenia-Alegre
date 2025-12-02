@@ -12,7 +12,8 @@ class InventoryPage:
     def is_at_inventory_page(self):
         return self.CURRENT_URL in self.driver.current_url
 
-    def add_item_to_cart(self):
+    def add_item_to_cart(self,cuantos):
         products = self.driver.find_elements(By.CLASS_NAME, 'inventory_item')
-        products[0].find_element(By.TAG_NAME, 'button').click()
+        for i in range(cuantos):
+            products[i].find_element(By.TAG_NAME, 'button').click()
 

@@ -22,3 +22,11 @@ def get_login_faker(num_casos=5):
         casos.append((username, password, login_example))
 
     return casos
+
+
+def generar_datos_checkout_fake():
+    datos = {'name': fake.name(),
+             'last_name': fake.last_name(),
+             'zip_code':fake.zipcode()
+             }
+    return datos

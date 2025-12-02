@@ -1,14 +1,15 @@
 from selenium.webdriver.common.by import By
 from page.login_page import LoginPage
-from utils.helpers import URL
+from utils.helpers import URL, USERNAME,PASSWORD
 
 from utils.helpers import take_screenshot
 from page.inventory_page import InventoryPage
+
 def test_catalog(driver):
     test_name = 'test_catalog'
     loginpage = LoginPage(driver)
     loginpage.open()
-    loginpage.login()
+    loginpage.login(USERNAME,PASSWORD)
     products = driver.find_elements(By.CLASS_NAME, 'inventory_item')
     inventory = InventoryPage(driver)
     inventory.is_at_inventory_page()
