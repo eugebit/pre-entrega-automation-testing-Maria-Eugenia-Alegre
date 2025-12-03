@@ -30,11 +30,11 @@ def get_driver():
 def get_screenshot_name():
     # Generar nombre del archivo con la fecha y hora actual
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    screenshot_name = f"captura_error{timestamp}.png"
+    screenshot_name = f"_{timestamp}.png"
     return screenshot_name
 
 
 def take_screenshot(driver, test_name):
     screenshot_name = get_screenshot_name()
-    path = '../Evidencias' + test_name + screenshot_name + '.png'
+    path = "Evidencias/" + test_name + screenshot_name
     driver.save_screenshot(path)

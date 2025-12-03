@@ -3,7 +3,7 @@ import requests
 import pytest
 from faker import Faker
 import pytest_check as check
-from tests.conftest import logger
+from conftest import logger
 fake = Faker()
 
 
